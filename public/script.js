@@ -1,6 +1,6 @@
 const socket = io("/");
 const videoGrid = document.getElementById("video-grid");
-
+let streamArray = [];
 const myPeer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
@@ -45,10 +45,6 @@ navigator.mediaDevices
 
     socket.on("user-connected", (userId) => {
       console.log("user connected", userId);
-      if (host == "true") {
-        // multiStreamRecorder.start();
-        multiStreamRecorder.addStream(stream);
-      }
       setTimeout(() => {
         connectToNewUser(userId, stream);
       }, 500);
@@ -83,8 +79,13 @@ function connectToNewUser(userId, stream) {
 }
 
 function addVideoStream(video, stream, host = false) {
+  
   console.log(host);
   if (host == "true") {
+    // if(!streamArray.includes(stream)){
+    //   streamArray.push(stream);
+    //   multiStreamRecorder.addStream(stream);
+    // }
     let button = document.getElementById("stopRecording");
 
     button.style.display = "block";
