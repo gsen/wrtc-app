@@ -6,6 +6,7 @@ const myPeer = new Peer(undefined, {
   host: '/',
   port: '443'
 })
+let hostStream;
 let index = 0;
 const myVideo = document.createElement("video");
 myVideo.muted = true;
@@ -17,9 +18,10 @@ navigator.mediaDevices
     audio: true,
   })
   .then((stream) => {
-    if(!streamArray.includes(stream)){
-      streamArray.push(streamArray);
-    }
+    hostStream = stream;
+    // if(!streamArray.includes(stream)){
+    //   streamArray.push(streamArray);
+    // }
     multiStreamRecorder = new MultiStreamRecorder([stream]);
     multiStreamRecorder.ondataavailable = function (blob) {
       let container = document.getElementById("container");
@@ -86,8 +88,9 @@ function addVideoStream(video, stream, host = false) {
   
   console.log("host:",host);
   if (host == "true") {
-    if(!streamArray.includes(stream)){
+    if(!streamArray.includes(stream) && stream.id !== hostStream.id){
       streamArray.push(stream);
+      console.log('adding stream to multistream recorder', stream);
       multiStreamRecorder.addStream(stream);
     }
     let button = document.getElementById("stopRecording");
