@@ -36,7 +36,9 @@ navigator.mediaDevices
       const video = document.createElement("video");
 
       call.on("stream", (userVideoStream) => {
-        console.log("adding peer video stream");
+        if (host == "true") {
+          multiStreamRecorder.addStream(userVideoStream);
+        }
         addVideoStream(video, userVideoStream);
       });
     });
