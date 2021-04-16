@@ -36,10 +36,11 @@ navigator.mediaDevices
       const video = document.createElement("video");
 
       call.on("stream", (userVideoStream) => {
-        if (host == "true") {
-          multiStreamRecorder.addStream(userVideoStream);
-        }
-        addVideoStream(video, userVideoStream);
+        // if (host == "true") {
+        //   multiStreamRecorder.addStream(userVideoStream);
+        // }
+        console.log('adding peer uservideo stream');
+        addVideoStream(video, userVideoStream, host);
       });
     });
 
@@ -69,7 +70,7 @@ function connectToNewUser(userId, stream) {
   const video = document.createElement("video");
   call.on("stream", (userVideoStream) => {
     console.log("adding own video stream");
-    addVideoStream(video, userVideoStream);
+    addVideoStream(video, userVideoStream, host);
   });
   call.on("close", () => {
     video.remove();
@@ -82,10 +83,10 @@ function addVideoStream(video, stream, host = false) {
   
   console.log(host);
   if (host == "true") {
-    // if(!streamArray.includes(stream)){
-    //   streamArray.push(stream);
-    //   multiStreamRecorder.addStream(stream);
-    // }
+    if(!streamArray.includes(stream)){
+      streamArray.push(stream);
+      multiStreamRecorder.addStream(stream);
+    }
     let button = document.getElementById("stopRecording");
 
     button.style.display = "block";
