@@ -2,8 +2,7 @@ const socket = io("/");
 const videoGrid = document.getElementById("video-grid");
 
 const myPeer = new Peer(undefined, {
-  host: "https://videoconference-peer.onrender.com/",
-  port: "3001",
+  host: "https://videoconference-peer.onrender.com/"
 });
 let index = 0;
 const myVideo = document.createElement("video");
