@@ -69,7 +69,7 @@ function connectToNewUser(userId, stream) {
   const call = myPeer.call(userId, stream);
   const video = document.createElement("video");
   call.on("stream", (userVideoStream) => {
-    console.log("adding own video stream");
+    console.log("adding new user video stream");
     addVideoStream(video, userVideoStream, host);
   });
   call.on("close", () => {
@@ -81,7 +81,7 @@ function connectToNewUser(userId, stream) {
 
 function addVideoStream(video, stream, host = false) {
   
-  console.log(host);
+  console.log("host:",host);
   if (host == "true") {
     if(!streamArray.includes(stream)){
       streamArray.push(stream);
@@ -94,7 +94,7 @@ function addVideoStream(video, stream, host = false) {
       multiStreamRecorder.stop();
     });
   }
-  console.log("adding video stream");
+  console.log("function addVideoStream","adding video stream");
   video.srcObject = stream;
   video.addEventListener("loadedmetadata", () => {
     video.play();
