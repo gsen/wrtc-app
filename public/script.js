@@ -17,6 +17,9 @@ navigator.mediaDevices
     audio: true,
   })
   .then((stream) => {
+    if(!streamArray.includes(stream)){
+      streamArray.push(streamArray);
+    }
     multiStreamRecorder = new MultiStreamRecorder([stream]);
     multiStreamRecorder.ondataavailable = function (blob) {
       let container = document.getElementById("container");
