@@ -1,11 +1,10 @@
 const socket = io("/");
 const videoGrid = document.getElementById("video-grid");
-const myPeer = new Peer(undefined, {
-  path: '/peerjs',
-  host: '/',
-  port: '3001'
-});
 
+const myPeer = new Peer(undefined, {
+  host: "https://videoconference-peer.onrender.com/",
+  port: "3001",
+});
 let index = 0;
 const myVideo = document.createElement("video");
 myVideo.muted = true;
@@ -43,7 +42,7 @@ navigator.mediaDevices
 
     socket.on("user-connected", (userId) => {
       console.log("user connected", userId);
-      if (host) {
+      if (host == "true") {
         // multiStreamRecorder.start();
         multiStreamRecorder.addStream(stream);
       }
@@ -82,7 +81,7 @@ function connectToNewUser(userId, stream) {
 
 function addVideoStream(video, stream, host = false) {
   console.log(host);
-  if (host) {
+  if (host == "true") {
     let button = document.getElementById("stopRecording");
 
     button.style.display = "block";
